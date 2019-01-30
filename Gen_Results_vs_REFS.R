@@ -61,8 +61,16 @@ gen.results <- function(results.filename, subsample.directory, modelstring.direc
   struct.conv <- list('forest fire' = 'ForestFire', 'ic-dag' = 'icDAG', 'preferential attachment' = 'PrefAttach')
   
   results <- NULL
+  
+  start.idx <- 1
+  
+  if(file_test("-f", result.savedir)) {
+    start.idx <- nrow(read.csv(result.savedir)) + 1
+    print(paste0('Resuming from experiment #', start.idx))
+  }
+  
   #Iterate over rows
-  for(i in 1:nrow(results.df)) {
+  for(i in start.idx:nrow(results.df)) {
     row <- results.df[i, ]
     #Load True Structure
     true.string <- row$truth_modelstring
@@ -89,13 +97,14 @@ gen.results <- function(results.filename, subsample.directory, modelstring.direc
     refs.results <- get.results.wvstructs(true.model, refs.learnt, 'REFS')
     
     #Get Algorithm Learnt Model
-    algorithm.results <- do.call(algorithm, algorithm.parameters)
+    algorithm.learnt <- do.call(algorithm, append(list(data = data), algorithm.parameters))
+    
+    #Get algorithm results
+    algorithm.results <- get.results.wvstructs(true.model, algorithm.learnt, algorithm.name)
     
     #Store results in row
     results.row <- c('Structure Type' = as.character(names(struct.conv)[which(struct.conv %in% row$input_structure)]), 'Number of Samples' = row$input_samples,
                      'Number of Nodes' = row$input_nodes, 'N.Params' = n.params, refs.results, algorithm.results)
-    #Add Algorithm name
-    names(results.row) <- c(head(names(results.row), -1), algorithm.name)
     
     results <- rbind(results, results.row)
     write.csv(results, result.savedir)
@@ -103,4 +112,10 @@ gen.results <- function(results.filename, subsample.directory, modelstring.direc
   return(results)
 }
 
-results <- gen.refs.results('REFS_Results/notes_20181121_01.csv', 'REFS_Results/data/', 'REFS_Results/')
+results <- gen.results('~/Desktop/REFS_Results/notes_20181121_01.csv',
+                       '~/Desktop/REFS_Results/data/',
+                       '~/Desktop/REFS_Results/',
+                       dag.threshold.ensemble,
+                       'Clustered.Fragments.PCTABU',
+                       NULL,
+                       'test.csv')
