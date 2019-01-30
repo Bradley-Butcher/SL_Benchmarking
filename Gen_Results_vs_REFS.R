@@ -108,7 +108,7 @@ gen.results <- function(results.filename, subsample.directory, modelstring.direc
                      'Number of Nodes' = row$input_nodes, 'N.Params' = n.params, refs.results, algorithm.results)
     
     results <- rbind(results, results.row)
-    write.csv(results, result.savedir, row.names = NULL)
+    write.csv(results, result.savedir, row.names = FALSE)
   }
   return(results)
 }
