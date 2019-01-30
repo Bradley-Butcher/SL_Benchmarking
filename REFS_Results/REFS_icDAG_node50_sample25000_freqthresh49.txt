@@ -1,0 +1,1 @@
+[I][N][O][R][S][W][X][Y][Z][AA][AB][AD][AE][AG][AI][AJ][AK][AL][AM][AN][AO][AP][AR][AV][AW][F|AA:AL][G|W:AJ][H|Z][M|AD:AR][P|Y:AB][Q|S:AO][T|AM][U|AE][V|AI][AH|Z][AQ|R][AT|AW][AU|O][AX|AO][K|Q:R:AP][L|N:P:Y][AS|AT:AV][E|G:K:AG][J|L:O:T:V:X][AF|AK:AS][D|H:J:L:U:Z:AN][AC|AF:AS][C|D:M:Z:AC:AR:AS][B|C:D:E:Z:AC:AG:AR:AS][A|B:F:I:AC:AS:AT]
