@@ -65,7 +65,8 @@ gen.results <- function(results.filename, subsample.directory, modelstring.direc
   start.idx <- 1
   
   if(file_test("-f", result.savedir)) {
-    start.idx <- nrow(read.csv(result.savedir)) + 1
+    results <- read.csv(result.savedir)
+    start.idx <- nrow(results) + 1
     print(paste0('Resuming from experiment #', start.idx))
   }
   
@@ -107,7 +108,7 @@ gen.results <- function(results.filename, subsample.directory, modelstring.direc
                      'Number of Nodes' = row$input_nodes, 'N.Params' = n.params, refs.results, algorithm.results)
     
     results <- rbind(results, results.row)
-    write.csv(results, result.savedir)
+    write.csv(results, result.savedir, row.names = NULL)
   }
   return(results)
 }
@@ -117,5 +118,5 @@ results <- gen.results('~/Desktop/REFS_Results/notes_20181121_01.csv',
                        '~/Desktop/REFS_Results/',
                        dag.threshold.ensemble,
                        'Clustered.Fragments.PCTABU',
-                       NULL,
-                       'test.csv')
+                       list(n = 20),
+                       'Clustered_Fragments_PCTABU.csv')
