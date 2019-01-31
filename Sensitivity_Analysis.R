@@ -14,6 +14,7 @@ Calculate.F1 <- function(true, learnt, skeleton = FALSE) {
 sensitivity.analysis <- function(bn.structure, bn.fit, algorithm, skeleton, algorithm.parameters, samples, tests) {
   scores <- c()
   for (i in 1:tests) {
+    print(paste0('Test: ', i, ', Samples: ', samples))
     data.sample <- SynBN::generate.synthetic.dataset(bn.fit, sample.size = samples, seed = i)
     learnt.structure <- do.call(algorithm, append(list(data = data.sample), algorithm.parameters))
     scores <- c(scores, Calculate.F1(bn.structure, learnt.structure, skeleton = skeleton)$F1)
@@ -22,7 +23,7 @@ sensitivity.analysis <- function(bn.structure, bn.fit, algorithm, skeleton, algo
 }
 
 sensitivity.plot <- function(bn.structure, bn.fit, algorithm, skeleton = FALSE, algorithm.parameters = NULL,
-                             samples=c(1000, 5000, 10000, 25000), tests = 10, algorithm.name = 'TEST') {
+                             samples=c(1000, 5000, 10000), tests = 10, algorithm.name = 'TEST') {
   library(ggplot2)
   scores <- c()
   sample.labels <- c()
