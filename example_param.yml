@@ -1,0 +1,8 @@
+alpha_values: [1, 10, 50, 100]
+number_of_variables: [10, 25, 50, 75, 100]
+number_of_samples: [100, 1000, 2500, 5000, 10000, 25000, 50000]
+trial_seeds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+complexity: [1, 2, 3]
+average_levels: [3, 4, 5]
+structure_types: ['forest fire', 'icdag', 'preferential attachment']
+workers: 1
